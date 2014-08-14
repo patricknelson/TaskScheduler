@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * Class TaskScheduler
  *
@@ -32,6 +32,11 @@
 		dump($task->getFailReason());
 	}
 
+ *
+ * @author		Patrick Nelson <pat@catchyour.com>
+ * @copyright	2014 Patrick Nelson
+ * @license		http://opensource.org/licenses/MIT	The MIT License (MIT)
+ * @link		https://github.com/patricknelson/TaskScheduler
  */
 
 class TaskScheduler {
