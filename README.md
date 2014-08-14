@@ -9,6 +9,8 @@ Useful for scheduling tasks to run at specific times or intervals without having
 ## Example Usage ##
 
 ```php
+    <?php
+
 	// Will setup a task to run only on first Mondays and Tuesdays of every month, every 15 minutes during those days.
 	$task = new TaskScheduler("my-task");
 	$task->setInterval($task::FREQ_MIN, 15);
