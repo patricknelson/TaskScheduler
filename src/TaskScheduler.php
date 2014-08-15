@@ -70,19 +70,25 @@ class TaskScheduler {
 	private $useOrLogic = false; // Weekday and month day logical combinations.
 	private $failReason = ""; // Indicates reason why task failed to run. Use ->getFailReason() for contents.
 
+	/**
+	 * @var TaskStorageInterface
+	 */
+	private $storage;
+
 
 	/**
 	 * After instantiating, you should call either ->setInterval() or ->setTime() first.
 	 *
 	 * Then, check ->run() to see if you should run your task.
 	 *
-	 * @param	string	$taskName
+	 * @param	string					$taskName	Name of the task for storage reference purposes.
+	 * @param	TaskStorageInterface	$storage	An implementation that allows generic storage/retrieval of data.
 	 * @throws	Exception
 	 */
-	public function __construct($taskName) {
+	public function __construct($taskName, TaskStorageInterface $storage) {
 		if (empty($taskName)) throw new \Exception("Task name cannot be empty.");
-		if (!class_exists("DynSetting")) throw new \Exception("The class 'DynSetting' is required.");
 		$this->taskName = $taskName;
+		$this->storage = $storage;
 
 		// Set current time. Allows easier debugging/testing.
 		$this->time = time();
@@ -246,7 +252,7 @@ class TaskScheduler {
 		$defaults = array( // Using array for future extensibility...
 			"last" => 0,
 		);
-		$settings = DynSetting::get($this->getSettingName(), $defaults);
+		$settings = $this->storage->get($this->getSettingName(), $defaults);
 		$lastRun = $settings["last"];
 
 		// Check specific times or desired interval.
@@ -326,7 +332,7 @@ class TaskScheduler {
 		$defaults = array( // Using array for future extensibility...
 			"last" => 0,
 		);
-		$settings = DynSetting::get($this->getSettingName(), $defaults);
+		$settings = $this->storage->get($this->getSettingName(), $defaults);
 		return $settings;
 	}
 
@@ -337,7 +343,7 @@ class TaskScheduler {
 	 * @param	array	$settings
 	 */
 	protected function saveSettings(array $settings) {
-		DynSetting::set($this->getSettingName(), $settings);
+		$this->storage->set($this->getSettingName(), $settings);
 	}
 
 
