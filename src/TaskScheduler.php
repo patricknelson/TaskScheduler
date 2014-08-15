@@ -7,8 +7,12 @@
  *
  * Example usage:
 
+ 	// Setup the a CUSTOM implementation of the TaskStorageInterface to persist task information.
+	// Simply has two accessible methods:  ->set($settingName, $data) and ->get($settingName, $defaultValue = false)
+	$storage = new TaskStorage(storage_path() . "/tasks.dat");
+
 	// Will setup a task to run only on first Mondays and Tuesdays of every month, every 15 minutes during those days.
-	$task = new TaskScheduler("my-task");
+	$task = new TaskScheduler("my-task", $storage);
 	$task->setInterval($task::FREQ_MIN, 15);
 	$task->setWeekdays(array(
 		$task::DAY_MON,
