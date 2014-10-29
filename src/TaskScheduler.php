@@ -65,19 +65,19 @@ class TaskScheduler {
 	public $time = 0;
 
 	// Configured via methods below.
-	private $taskName = "";
-	private $weekDays = array(); // Default setting to run every day (if empty). Intersected with days of the month.
-	private $days = array(); // Default setting to run every day (if empty). Intersected with weekdays.
-	private $intervals = array(); // Pluralized, but only one interval is currently allowed.
-	private $times = array(); // Specific times of the day to run.
-	private $timeThreshold = 1; // Flexibility in minutes (see ->setTimeThreshold() method for details).
-	private $useOrLogic = false; // Weekday and month day logical combinations.
-	private $failReason = ""; // Indicates reason why task failed to run. Use ->getFailReason() for contents.
+	protected $taskName = "";
+	protected $weekDays = array(); // Default setting to run every day (if empty). Intersected with days of the month.
+	protected $days = array(); // Default setting to run every day (if empty). Intersected with weekdays.
+	protected $intervals = array(); // Pluralized, but only one interval is currently allowed.
+	protected $times = array(); // Specific times of the day to run.
+	protected $timeThreshold = 1; // Flexibility in minutes (see ->setTimeThreshold() method for details).
+	protected $useOrLogic = false; // Weekday and month day logical combinations.
+	protected $failReason = ""; // Indicates reason why task failed to run. Use ->getFailReason() for contents.
 
 	/**
 	 * @var TaskStorageInterface
 	 */
-	private $storage;
+	protected $storage;
 
 
 	/**
@@ -352,7 +352,7 @@ class TaskScheduler {
 
 
 	/**
-	 * Indicates the name of the setting as it is stored in DynSetting.
+	 * Indicates the name of the setting as it is stored.
 	 *
 	 * @return string
 	 */
