@@ -253,10 +253,7 @@ class TaskScheduler {
 
 
 		// Get last time this task has run.
-		$defaults = array( // Using array for future extensibility...
-			"last" => 0,
-		);
-		$settings = $this->storage->get($this->getSettingName(), $defaults);
+		$settings = $this->getSettings();
 		$lastRun = $settings["last"];
 
 		// Check specific times or desired interval.
@@ -336,7 +333,7 @@ class TaskScheduler {
 		$defaults = array( // Using array for future extensibility...
 			"last" => 0,
 		);
-		$settings = $this->storage->get($this->getSettingName(), $defaults);
+		$settings = array_merge($defaults, $this->storage->get($this->getSettingName(), $defaults));
 		return $settings;
 	}
 
